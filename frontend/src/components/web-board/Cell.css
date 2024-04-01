@@ -1,0 +1,60 @@
+.cell {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.black {
+    background-color: #b58863;
+}
+
+.white {
+    background-color: #f0d9b5;
+}
+
+.unavailable {
+    pointer-events: none;
+}
+
+.available {
+    cursor: pointer;
+}
+
+.whiteFigure {
+    background-image: url("../../assets/white.png");
+    background-repeat:no-repeat;
+    background-position: center center;
+    background-size: 64px 64px;
+}
+
+.blackFigure {
+    background-image: url("../../assets/black.png");
+    background-repeat:no-repeat;
+    background-position: center center;
+    background-size: 64px 64px;
+}
+
+.focus::before {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    display: block;
+    border-radius: 50%;
+    background-color: #e3ff2f;
+    opacity: 40%;
+    top: 7px;
+    left: 7px;
+    z-index: 1;
+}
+
+.colored.black {
+    background-color: #aaa23a;
+}
+
+.colored.white {
+    background-color: #cdd26a;
+}

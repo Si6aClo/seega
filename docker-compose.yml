@@ -1,0 +1,57 @@
+version: "3.3"
+
+services:
+  frontend:
+    build: 
+      context: ./frontend/
+      dockerfile: Dockerfile.dev
+    command: npm start
+    depends_on:
+      - backend
+    ports:
+      - "80:3000"
+    volumes:
+      - ./frontend/:/home/app
+  
+  backend:
+    build:
+      context: ./backend
+    command: python3 main.py
+    environment:
+      - POSTGRES_HOST=${DATABASE_HOSTNAME}
+      - POSTGRES_PORT=${DATABASE_PORT}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USERNAME}
+    ports:
+      - "8000:8000"
+    depends_on:
+      - store
+      - cache
+    volumes:
+    - ./backend:/home/app
+  
+  store:
+    image: postgres:15.3
+    environment:
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    hostname: ${DATABASE_HOSTNAME}
+  
+  cache:
+    image: redis:7.2-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+
+  redis-insight:
+    image: redis/redisinsight:latest
+    ports:
+      - "5540:5540"
+
+volumes:
+  db-data:
+  

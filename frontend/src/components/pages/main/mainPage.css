@@ -1,0 +1,79 @@
+.main__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #b5b5b5;
+}
+
+.main__create {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #b5b5b5;
+    padding-bottom: 20px;
+}
+
+.main__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main__field {
+    max-width: 640px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main__button {
+    background-color: #b1a07b;
+}
+
+.main__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.main__list-items {
+    width: 100%;
+    max-width: 640px;
+}
+
+.main__list-item {
+    width: 100%;
+    max-width: 640px;
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main__list-item p {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.list-item__button {
+    margin: 0;
+    max-height: 40px;
+}
+
+.main__list-item.null-games {
+    justify-content: center;
+}
+
+.invalid_message {
+    color: red;
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+
+@media (max-width: 480px) {
+    .main__info p {
+        font-size: 15px;
+    }
+}
