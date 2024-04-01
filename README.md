@@ -1,2 +1,2 @@
-# SiggaGame
+# SeegaGame
 ## Project for course work
