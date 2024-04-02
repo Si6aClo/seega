@@ -29,3 +29,40 @@
 .board__players-color span {
     font-weight: 500;
 }
+
+.webpage__link {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.webpage__linkblock {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.link__text {
+    margin-bottom: 0;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.link__url {
+    height: 30px;
+    width: 30px;
+    border: none;
+    background-color: #bebebe;
+    border-radius: 4px;
+    background-image: url("../../../assets/link.png");
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.link__message {
+    font-size: 14px;
+    color: #8e8e8e;
+    opacity: 0.8;
+}
