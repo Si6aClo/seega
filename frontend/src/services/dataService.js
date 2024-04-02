@@ -1,9 +1,11 @@
+import { useEnv } from "../hooks/env.hook";
 import { useHttp } from "../hooks/http.hook";
 
 
 const useDataService = () => {
     const { request, error } = useHttp();
-    const baseUrl = "http://127.0.0.1:8000/api/v1";
+    const { API_URL } = useEnv();
+    const baseUrl = `${API_URL}/api/v1`;
 
     const getGamesList = async () => {
         const data = await request(`${baseUrl}/games/public`, "GET");

@@ -14,9 +14,6 @@ from utils.common import get_hostname
 
 logger = getLogger(__name__)
 
-REDIS_URL = 'redis://127.0.0.1'
-REDIS_DB = 0
-
 
 def bind_routes(application: FastAPI, setting: DefaultSettings) -> None:
     """
@@ -57,7 +54,7 @@ def get_app(redis=None) -> FastAPI:
 
         if redis is None:
             redis = await aioredis.from_url(
-                REDIS_URL, db=REDIS_DB
+                settings.REDIS_URL, db=settings.REDIS_DB
             )
         assert await redis.ping()
 

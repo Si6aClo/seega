@@ -15,14 +15,6 @@ import GameExistsPage from '../pages/game-exitsts-page/gameExistsPage';
 import "./App.css"
 
 function App() {
-  const { request } = useHttp();
-
-  useEffect(() => {
-    request('http://127.0.0.1:8000/api/v1/auth', 'GET').then((data) => {
-      Cookies.set("XUserToken", data.token);
-    });
-  }, []);
-
   return (
     <Router>
       <div className="App">

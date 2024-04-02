@@ -1,10 +1,12 @@
 import { useState, useCallback } from "react";
 import Cookies from "js-cookie";
+import { useEnv } from "./env.hook";
 
 export const useHttp = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const token = Cookies.get("XUserToken");
+    let token = Cookies.get("XUserToken");
+    const { API_URL } = useEnv();
 
     const request = useCallback(async (
         url,
@@ -31,6 +33,14 @@ export const useHttp = () => {
             return response;
         }
     }, [])
+
+
+    if (token === undefined || token === null) {
+        request(`${API_URL}/api/v1/auth`, 'GET').then((data) => {
+            Cookies.set("XUserToken", data.token);
+            token = data.token;
+        });
+    }
 
     const clearError = useCallback(() => setError(null), []);
 

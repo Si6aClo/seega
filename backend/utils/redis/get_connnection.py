@@ -2,8 +2,7 @@ import aioredis
 from aioredis.client import Redis
 from fastapi.requests import Request
 
-REDIS_URL = 'redis://127.0.0.1'
-REDIS_DB = 0
+from config import get_settings
 
 
 def get_redis(request: Request) -> Redis:
@@ -11,4 +10,5 @@ def get_redis(request: Request) -> Redis:
 
 
 async def get_redis_websocket():
-    return await aioredis.from_url(REDIS_URL, db=REDIS_DB)
+    settings = get_settings()
+    return await aioredis.from_url(settings.REDIS_URL, db=settings.REDIS_DB)

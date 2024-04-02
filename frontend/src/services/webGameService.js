@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import Board from "../models/Board";
 import colors from "../models/Colors";
 import dicts from "../utils/requestData";
+import { useEnv } from "../hooks/env.hook";
 
 const useWebGameService = (gameId, isBot = false) => {
   const { colorsDict, gameStagesDict, gameStagesToStr, ColorsToStr } = dicts;
@@ -17,16 +18,17 @@ const useWebGameService = (gameId, isBot = false) => {
   const [socket, setSocket] = useState(null);
   const { request } = useHttp();
 
-  const baseUrl = "http://127.0.0.1:8000/api/v1";
+  const { API_URL, WS_URL } = useEnv();
+  const baseUrl = `${API_URL}/api/v1`;
   const userToken = Cookies.get("XUserToken");
 
   useEffect(() => {
     getGame();
     let newSocket;
     if (!isBot) {
-      newSocket = new WebSocket(`ws://127.0.0.1:8000/api/v1/games/${gameId}?token=${userToken}`);
+      newSocket = new WebSocket(`${WS_URL}/api/v1/games/${gameId}?token=${userToken}`);
     } else {
-      newSocket = new WebSocket(`ws://127.0.0.1:8000/api/v1/games/bot/${userToken}`);
+      newSocket = new WebSocket(`${WS_URL}/api/v1/games/bot/${userToken}`);
     }
     setSocket(newSocket);
   }, []);
@@ -49,8 +51,10 @@ const useWebGameService = (gameId, isBot = false) => {
   }, [lastMessage]);
 
   useEffect(() => {
+    console.log("socket", socket);
     if (!socket) return;
-    socket.onmessage = (event, localPlayerColor = playerColor) => {
+    socket.onmessage = (event) => {
+      console.log("setting message");
       setLastMessage(JSON.parse(event.data));
     };
   }, [socket]);

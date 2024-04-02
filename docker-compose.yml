@@ -3,30 +3,25 @@ version: "3.3"
 services:
   frontend:
     build: 
-      context: ./frontend/
-      dockerfile: Dockerfile.dev
-    command: npm start
+      context: .
+      dockerfile: nginx/Dockerfile
+      args:
+        - REACT_APP_API_URL=${API_URL}
+        - REACT_APP_WS_URL=${WS_URL}      
     depends_on:
       - backend
     ports:
-      - "80:3000"
-    volumes:
-      - ./frontend/:/home/app
+      - "80:80"
   
   backend:
     build:
       context: ./backend
     command: python3 main.py
     environment:
-      - POSTGRES_HOST=${DATABASE_HOSTNAME}
-      - POSTGRES_PORT=${DATABASE_PORT}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-      - POSTGRES_DB=${DATABASE_NAME}
-      - POSTGRES_USER=${DATABASE_USERNAME}
+      - REDIS_URL=${REDIS_URL}
     ports:
       - "8000:8000"
     depends_on:
-      - store
       - cache
     volumes:
     - ./backend:/home/app
