@@ -23,14 +23,17 @@ const useWebGameService = (gameId, isBot = false) => {
   const userToken = Cookies.get("XUserToken");
 
   useEffect(() => {
-    getGame();
-    let newSocket;
-    if (!isBot) {
-      newSocket = new WebSocket(`${WS_URL}/api/v1/games/${gameId}?token=${userToken}`);
-    } else {
-      newSocket = new WebSocket(`${WS_URL}/api/v1/games/bot/${userToken}`);
-    }
-    setSocket(newSocket);
+    getGame().then(data => {
+      const token = Cookies.get("XUserToken");
+      let newSocket;
+
+      if (!isBot) {
+        newSocket = new WebSocket(`${WS_URL}/api/v1/games/${gameId}?token=${token}`);
+      } else {
+        newSocket = new WebSocket(`${WS_URL}/api/v1/games/bot/${token}`);
+      }
+      setSocket(newSocket);
+    });
   }, []);
 
   useEffect(() => {
@@ -61,6 +64,7 @@ const useWebGameService = (gameId, isBot = false) => {
 
   const getGame = async () => {
     const data = await request(`${baseUrl}/games/${gameId}/`, "GET");
+    console.log(data);
     let color
     if (data.white_player === userToken) {
       setPlayerColor(colors.white);
