@@ -15,7 +15,7 @@ export const useHttp = () => {
         useUserToken = true,
     ) => {
         let reqToken = Cookies.get("XUserToken");
-        if (reqToken === "") {
+        if (reqToken === "" || reqToken === undefined || reqToken === null) {
             const res = await fetch(`${API_URL}/api/v1/auth`, { method, body, headers, credentials: 'same-origin' });
             const data = await res.json();
             Cookies.set("XUserToken", data.token);
