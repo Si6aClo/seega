@@ -18,6 +18,7 @@ const AppHeader = () => {
                             <NavLink to={"/"} className="header__link">ГЛАВНАЯ</NavLink>
                             <NavLink to={"/bot/create"} className="header__link">С КОМПЬЮТЕРОМ</NavLink>
                             <NavLink to={"/offline"} className="header__link">НА ОДНОМ УСТРОЙСТВЕ</NavLink>
+                            <NavLink to={"/rules"} className="header__link">ПРАВИЛА</NavLink>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

@@ -13,6 +13,7 @@ import CreateBotGame from '../pages/bot-page/createBotGame';
 import GameExistsPage from '../pages/game-exitsts-page/gameExistsPage';
 
 import "./App.css"
+import RulesPage from '../pages/rules-page/rulesPage';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path='/bot/:gameId' element={<BotPage />} />
               <Route path='/bot/create' element={<CreateBotGame />} />
               <Route path='/game-exists/:gameId' element={<GameExistsPage />} />
+              <Route path='/rules' element={<RulesPage />} />
             </Routes>
           </Container>
         </main>
