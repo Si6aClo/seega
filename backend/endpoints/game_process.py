@@ -128,6 +128,7 @@ async def websocket_bot_endpoint(
     game_data_object = GameData.parse_obj(json.loads(raw_game_data))
     await websocket.accept()
     if game_data_object.game_stage == GameStage.WAITING:
+        game_data_object.game_stage = GameStage.ARRANGEMENT
         await websocket.send_text(Message(
             message_type=MessageType.GAME,
             turn_data=TurnData(
@@ -141,7 +142,6 @@ async def websocket_bot_endpoint(
             game_stage=game_data_object.game_stage,
             turn_color=game_data_object.player_turn,
         ).model_dump_json())
-        game_data_object.game_stage = GameStage.ARRANGEMENT
         await redis.set(game_id, game_data_object.model_dump_json())
     if game_data_object.game_stage == GameStage.ARRANGEMENT or game_data_object.game_stage == GameStage.GAME:
         while True:
